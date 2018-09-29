@@ -57,4 +57,16 @@ def save()
     return result
   end
 
+  def buy_ticket()
+    films()
+    for film in films
+      @funds -= film.price
+    end
+    return @funds
+  end
+
+  def num_of_tickets()
+    return films.count
+  end
+
 end

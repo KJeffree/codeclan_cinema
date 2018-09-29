@@ -52,10 +52,13 @@ def save()
       ON customers.id = tickets.customer_id
       WHERE tickets.film_id = $1
     "
-
     customers = SqlRunner.run(sql, [@id])
     result = customers.map {|customer| Customer.new(customer)}
     return result
+  end
+
+  def num_of_customers()
+    return customers().count
   end
 
 end
