@@ -47,8 +47,10 @@ def save()
   def films()
     sql = "
       SELECT films.* FROM films
+      INNER JOIN screenings
+      ON films.id = screenings.film_id
       INNER JOIN tickets
-      ON films.id = tickets.film_id
+      ON screenings.id = tickets.screening_id
       WHERE tickets.customer_id = $1
     "
 

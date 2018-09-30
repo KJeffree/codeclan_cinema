@@ -50,7 +50,9 @@ def save()
       SELECT customers.* FROM customers
       INNER JOIN tickets
       ON customers.id = tickets.customer_id
-      WHERE tickets.film_id = $1
+      INNER JOIN screenings
+      ON screenings.id = tickets.screening_id
+      WHERE screenings.film_id = $1
     "
     customers = SqlRunner.run(sql, [@id])
     result = customers.map {|customer| Customer.new(customer)}
@@ -59,6 +61,22 @@ def save()
 
   def num_of_customers()
     return customers().count
+  end
+
+  def popular_time()
+    sql = "
+      SELECT tickets.* FROM tickets
+      INNER JOIN screenings
+      ON screenings.id = tickets.screening_id
+      WHERE screenings.film_id = $1
+    "
+    tickets = SqlRunner.run(sql, [@id])
+    result = tickets.map {|ticket| Ticket.new(ticket).screening_id}
+    
+
+    return
+
+    # result.max_by {|v| freq[v]}
   end
 
 end
