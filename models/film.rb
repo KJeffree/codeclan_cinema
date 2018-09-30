@@ -72,7 +72,11 @@ def save()
     "
     tickets = SqlRunner.run(sql, [@id])
     result = tickets.map {|ticket| Ticket.new(ticket).screening_id}
-    
+
+    a = 0
+    b = 0
+    for screening in result
+      if screening ==
 
     return
 
